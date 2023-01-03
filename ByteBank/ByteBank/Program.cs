@@ -5,9 +5,8 @@
         // Mostrando o menu principal
         static void ShowMenu()
         {
-            Console.WriteLine("Bem-vindo!");
             Console.Write("Digite a opção desejada: ");
-            Console.WriteLine("1 - Inserir um novo usuário");
+            Console.WriteLine("1 - Registrar um novo usuário");
             Console.WriteLine("2 - Deletar um usuário");
             Console.WriteLine("3 - Listar todas as contas registradas");
             Console.WriteLine("4 - Ver detalhes de um usuário");
@@ -81,14 +80,59 @@
             ShowUserAccount(indexToShow, cpfs, names, balances);
         }
 
-        // --- Função para mostrar saldos---
-        static void ShowUserBalance(List<string> cpfs, List<string> names, List<double> balances)
+        // --- Função para mostrar saldo total no banco---
+        static void ShowUserBalance(List<double> balances)
         {
-
+            Console.WriteLine($"Saldo total no banco: {balances.Sum()}");
         }
         public static void Main(string[] args)
         {
+            // Para o usuário, o programa realmente inicia aqui. 
 
+            Console.WriteLine("Bem vido, seleccione a transação que deseja realizar: ");
+
+            // Criação das listas para utilizar durante todo o programa.
+            List<string> cpfs = new List<string>();
+            List<string> names = new List<string>();
+            List<string> passwords = new List<string>();    
+            List<double> balances = new List<double>();
+
+            // Solicitamos ao usuátio que escolha uma opção para iniciar, após exibir o menú
+
+            int option;
+
+            do
+            {
+                ShowMenu();
+                option = int.Parse(Console.ReadLine()); // lendo a opção para começar a funcionar
+                Console.WriteLine("-----------------");
+
+                switch (option)
+                {
+                    case 0:
+                        Console.WriteLine("Encerrando o progrma... Até mais!");
+                        break;
+                    case 1: 
+                        RegisterNewUser(cpfs, names, passwords, balances);
+                        break;
+                    case 2:
+                        DeleteUser(cpfs, names, passwords, balances);
+                        break;
+                    case 3:
+                        ListUsers(cpfs, names, balances);
+                        break;
+                    case 4:
+                        ShowUser(cpfs, names, balances);
+                        break;
+                    case 5:
+                        ShowUserBalance(balances); 
+                        break;
+                    //case 6:
+
+                }
+                Console.WriteLine("-----------------");
+
+            } while (option != 0);
         }
     }
 }
