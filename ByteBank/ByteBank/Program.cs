@@ -1,11 +1,12 @@
 ﻿namespace ByteBank
 {
     public class Program
+        // Inicio dos métodos ou funções dentro do programa
     {
         // Mostrando o menu principal
         static void ShowMenu()
         {
-            Console.Write("Digite a opção desejada: ");
+            Console.WriteLine("Digite a opção desejada: ");
             Console.WriteLine("1 - Registrar um novo usuário");
             Console.WriteLine("2 - Deletar um usuário");
             Console.WriteLine("3 - Listar todas as contas registradas");
@@ -15,7 +16,17 @@
             Console.WriteLine("0 - Sair do programa");
         }
 
-        // Inicio dos métodos ou funções dentro do programa
+        // Mostrando o menu secundario
+
+        static void ShowSecondMenu()
+        {
+            Console.WriteLine("Digite a transação que deseja realizar: ");
+            Console.WriteLine("1 - Depósito");
+            Console.WriteLine("2 - Saque");
+            Console.WriteLine("3 - Transferencia");
+            Console.WriteLine("4 - Voltar ao menu principal");
+        }
+
 
         // --- Função para registrar novos usuários---
         static void RegisterNewUser(List<string> cpfs, List<string> names, List<string> passwords, List<double> balances)
@@ -85,6 +96,105 @@
         {
             Console.WriteLine($"Saldo total no banco: {balances.Sum()}");
         }
+
+        // Inicio das funções do menu secundario
+
+        // --- Função para depositar---
+
+        static void SendMoney(List<double> balances, List<string> cpfs)
+        {
+            Console.WriteLine("Digite o CPF da conta destino: ");
+            string cpfToSendMoney = Console.ReadLine();
+            int indexToSendMoney = cpfs.FindIndex(cpf => cpf == cpfToSendMoney);
+
+            if (indexToSendMoney == -1)
+            {
+                Console.WriteLine("Usuário ou conta não encontrados.");
+            }
+            else
+            {
+                Console.WriteLine("Digite o valor do deposito: ");
+                double value = double.Parse(Console.ReadLine());
+                balances[indexToSendMoney] += value;
+                Console.WriteLine($"Deposito de R${value:F2} realizado com sucesso!");
+            } 
+        }
+        // --- Função para saque---
+
+        static void GetMoney(List<string>cpfs, List<double> balances)
+        {
+            
+        Console.WriteLine("Digite o CPF da conta: ");
+        string cpfToGetMoney = Console.ReadLine();
+        int indexToGetMoney = cpfs.FindIndex(cpf => cpf == cpfToGetMoney);
+        double value = 0;
+
+            if (indexToGetMoney == -1)
+            {
+                Console.WriteLine("Usuário ou conta não encontrados.");
+            }
+            else
+            {
+                Console.WriteLine("Digite o valor do retiro: ");
+                value = double.Parse(Console.ReadLine());
+            } 
+
+            if (balances[indexToGetMoney] < value) 
+            {
+                Console.WriteLine($"Saldo insuficiente. Seu saldo é {balances[indexToGetMoney]:F2}");
+            }
+            else
+            {
+                balances[indexToGetMoney] -= value;
+                Console.WriteLine($"Retiro de R${value:F2} realizado com sucesso!");
+                Console.WriteLine($"Seu saldo atual é R${balances[indexToGetMoney]:F2}");
+            }
+        }
+
+        // --- Função para transferencia---
+
+        static void TransferMoney(List<string> cpfs, List<double> balances)
+        {
+            Console.WriteLine("Digite o CPF da conta emisora: ");
+            string cpfWhoSendMoney = Console.ReadLine();
+            int indexWhoSendMoney = cpfs.FindIndex(cpf =>cpf == cpfWhoSendMoney);
+
+            Console.WriteLine("Digite o CPF da conta destino: ");
+            string cpfWhoReceiveMoney = Console.ReadLine();
+            int indexWhoReceiveMoney = cpfs.FindIndex(cpf => cpf == cpfWhoReceiveMoney);
+
+            if (indexWhoSendMoney== -1)
+            {
+                Console.WriteLine("Conta do emisor não encontrada.");
+            }
+
+            else if (indexWhoReceiveMoney == -1)
+            {
+                Console.WriteLine("Conta do destinatario não encontrada.");
+            }
+
+            else
+            {
+                Console.WriteLine("Digite o valor: ");
+                double value = double.Parse(Console.ReadLine());
+
+                if (balances[indexWhoSendMoney] < value)
+                {
+                    Console.WriteLine($"Saldo insuficiente. Seu saldo atual é {balances[indexWhoSendMoney]:F2}");
+                }
+                else
+                {
+                    balances[indexWhoSendMoney] -= value;
+                    balances[indexWhoReceiveMoney] += value;
+                    Console.WriteLine($"Transferencia de R${value:F2} realizada com sucesso");
+                    Console.WriteLine($"Seu saldo atual é R${balances[indexWhoSendMoney]:F2}");
+                }
+            }
+
+
+        }
+    }
+
         public static void Main(string[] args)
         {
             // Para o usuário, o programa realmente inicia aqui. 
@@ -97,7 +207,7 @@
             List<string> passwords = new List<string>();    
             List<double> balances = new List<double>();
 
-            // Solicitamos ao usuátio que escolha uma opção para iniciar, após exibir o menú
+            // Solicitamos ao usuário que escolha uma opção para iniciar, após exibir o menú
 
             int option;
 
