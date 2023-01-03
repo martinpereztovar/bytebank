@@ -14,6 +14,17 @@
             Console.WriteLine("6 - Manipular a conta");
             Console.WriteLine("0 - Sair do programa");
         }
+
+        static void RegisterNewUser(List<string> cpfs, List<string> names, List<string> senhas, List<double> saldos)
+        {
+            Console.WriteLine("Digite o CPF: ");
+            cpfs.Add(Console.ReadLine());
+            Console.WriteLine("Digite o nome: ");
+            names.Add(Console.ReadLine());
+            Console.WriteLine("Digite a senha: ");
+            senhas.Add(Console.ReadLine());
+            saldos.Add(0);
+        }
         public static void Main(string[] args)
         {
 
