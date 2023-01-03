@@ -6,7 +6,6 @@
         // Mostrando o menu principal
         static void ShowMenu()
         {
-            Console.WriteLine("Digite a opção desejada: ");
             Console.WriteLine("1 - Registrar um novo usuário");
             Console.WriteLine("2 - Deletar um usuário");
             Console.WriteLine("3 - Listar todas as contas registradas");
@@ -193,7 +192,35 @@
 
 
         }
-    }
+
+        // --- Função que inicia o Menu secundario---
+
+        static void BasicTransactions(List<string>cpfs, List<double>balances)
+        {
+            int option2;
+            do
+            {
+                ShowSecondMenu();
+                option2 = int.Parse(Console.ReadLine()); // lendo a opção do submenú
+                Console.WriteLine("-----------------");
+
+                switch (option2)
+                {
+                    case 1:
+                        SendMoney(cpfs, balances);
+                        break;
+                    case 2:
+                        GetMoney(cpfs, balances);
+                        break;
+                    case 3:
+                        TransferMoney(cpfs, balances);
+                        break;
+                }
+                Console.WriteLine("-----------------");
+            }
+            while(option2 != 0);
+
+        }
 
         public static void Main(string[] args)
         {
@@ -220,7 +247,7 @@
                 switch (option)
                 {
                     case 0:
-                        Console.WriteLine("Encerrando o progrma... Até mais!");
+                        Console.WriteLine("Encerrando o programa... Até mais!");
                         break;
                     case 1: 
                         RegisterNewUser(cpfs, names, passwords, balances);
@@ -237,8 +264,9 @@
                     case 5:
                         ShowUserBalance(balances); 
                         break;
-                    //case 6:
-
+                    case 6:
+                        BasicTransactions(cpfs, balances); 
+                        break;
                 }
                 Console.WriteLine("-----------------");
 
