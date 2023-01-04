@@ -23,7 +23,7 @@
             Console.WriteLine("1 - Depósito");
             Console.WriteLine("2 - Saque");
             Console.WriteLine("3 - Transferencia");
-            Console.WriteLine("4 - Voltar ao menu principal");
+            Console.WriteLine("0 - Voltar ao menu principal");
         }
 
 
@@ -208,7 +208,7 @@
                 switch (option2)
                 {
                     case 1:
-                        SendMoney(cpfs, balances);
+                        SendMoney(balances, cpfs);
                         break;
                     case 2:
                         GetMoney(cpfs, balances);
