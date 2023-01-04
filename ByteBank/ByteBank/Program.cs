@@ -162,7 +162,7 @@
             string cpfWhoReceiveMoney = Console.ReadLine();
             int indexWhoReceiveMoney = cpfs.FindIndex(cpf => cpf == cpfWhoReceiveMoney);
 
-            if (indexWhoSendMoney== -1)
+            if (indexWhoSendMoney == -1)
             {
                 Console.WriteLine("Conta do emisor não encontrada.");
             }
@@ -198,6 +198,7 @@
         static void BasicTransactions(List<string>cpfs, List<double>balances)
         {
             int option2;
+
             do
             {
                 ShowSecondMenu();
